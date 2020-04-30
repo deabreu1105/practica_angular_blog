@@ -1,0 +1,50 @@
+<!--Para que me funcione las validaciones y todo del formulario tengo que cargar
+o importar en app.module.ts FormsModule -->
+<div class="center">
+    <section id="content">
+        <h1 clas="subheader">{{page_title}}</h1>
+        <!--#userForm="ngForm": nombre del formulario para que interactua con el modelo de datos
+        (ngSubmit)="onSubmit(): metodo de envio del formulario-->
+        <form class="mid-form" #articleForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="title">Titulo</label>
+                <input type="text" name="title" #title="ngModel" [(ngModel)]="article.title" required />
+                
+                <small *ngIf="!title.valid && title.touched">
+                    El titulo no es valido
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenido</label>
+                <textarea name="content" #content="ngModel" [(ngModel)]="article.content" required ></textarea>
+            
+                <small *ngIf="!content.valid && content.touched">
+                    El contenido no es valido
+                </small>
+            </div>
+
+            <div class="form-group">
+                
+                <div class="image-thumb" *ngIf="is_edit">
+                    <!--get-image que esta en el backend -->
+                    <img src="{{url + 'get-image/' + article.image}}" alt="{{article.title}}" *ngIf="article.image"/>
+                    <img src="assets/images/photo_default.png " alt="{{article.title}}" *ngIf="!article.image"/>
+                </div>
+
+                <angular-file-uploader
+                    [config]="afuConfig"
+                    (ApiResponse)="imageUpload($event)">
+                >
+                </angular-file-uploader>
+            </div>
+
+
+            <div class="clearfix"></div>
+
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="articleForm.invalid"/>
+       </form>
+      
+    </section>
+    <app-sidebar></app-sidebar>
+</div>

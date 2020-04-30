@@ -1,0 +1,18 @@
+<app-slider 
+  [nombre] = "'Busqueda: ' + search"
+  [size] = "'small'"
+></app-slider>
+
+<div class="center">
+  <section id="content">
+    <h1 class="subheader">Articulos encontrados</h1>
+
+      <!--[articles] = "articles" usamos esta directiva para que nos traiga los articulos-->
+    <app-articles
+        [articles] = "articles"
+    ></app-articles>
+
+
+  </section>
+  <app-sidebar></app-sidebar>
+</div>
